@@ -1,4 +1,5 @@
 class Api::V1::UsersController < ApplicationController
+
     def index
         users = User.all
         render json: users
@@ -6,7 +7,7 @@ class Api::V1::UsersController < ApplicationController
   
     def create
         if User.find_by(:name => user_params[:name]) && User.find_by(:password => user_params[:password])
-            user = User.find_by(:name => user_params[:name])
+            user = User.find_by(:name => user_params[:name]) && User.find_by(:password => user_params[:password])
             render json: user
         else
             user = User.create(user_params)

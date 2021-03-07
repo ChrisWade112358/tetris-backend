@@ -5,7 +5,7 @@ class Api::V1::GamesController < ApplicationController
     end
   
     def create
-        binding.pry
+        
         game = Game.create(game_params)
         render json: game
       
@@ -18,6 +18,6 @@ class Api::V1::GamesController < ApplicationController
 
     private
     def game_params
-      params.require(:game).permit(:user, :score, :lines, :level)
+      params.require(:game).permit(:user_id, :score, :lines, :level)
     end
 end
