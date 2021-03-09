@@ -1,6 +1,5 @@
 class Api::V1::UsersController < ApplicationController
 
-    before_action only:(:update, :delete)
 
     def index
         users = User.all
@@ -17,9 +16,15 @@ class Api::V1::UsersController < ApplicationController
         end
     end
 
-    def update
+    def show
         bybug
-        user = User.find_by(:name => user_params[:name])
+        user = User.find_by_id(params[:id])
+        render json: user
+    end
+
+
+    def update
+        user = User.find_by_id(params[:id])
         user.update(user_params)
         render json: user
     end
@@ -27,7 +32,8 @@ class Api::V1::UsersController < ApplicationController
 
 
     def destroy
-        user = User.find_by(id: params[:id]).destroy
+        user = User.find_by_id(params[:id])
+        user.delete
         render json: user
     end
 
@@ -37,11 +43,9 @@ class Api::V1::UsersController < ApplicationController
   
     private
       def user_params
-        params.require(:user).permit(:name, :password)
+        params.require(:user).permit(:id, :name, :password)
       end
 
-      def get_user
-        user = User.find_by(:name => user_params[:name])
-      end
+      
    
 end
