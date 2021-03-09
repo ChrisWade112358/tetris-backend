@@ -5,11 +5,11 @@ class Api::V1::GamesController < ApplicationController
     end
   
     def create
-        
         game = Game.create(game_params)
         render json: game
       
     end
+
 
     def destroy
         game = game.find_by(id: params[:id]).destroy
