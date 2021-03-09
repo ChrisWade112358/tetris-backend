@@ -33,6 +33,13 @@ class Api::V1::UsersController < ApplicationController
 
     def destroy
         user = User.find_by_id(params[:id])
+        array = []
+        games = Game.all
+        for u in games do
+            if  user.id == u.user_id
+                u.delete
+            end
+        end
         user.delete
         render json: user
     end
